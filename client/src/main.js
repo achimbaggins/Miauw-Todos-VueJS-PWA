@@ -9,7 +9,7 @@ import moment from 'moment'
 
 
 Vue.prototype.$axios = axios.create({
-  baseURL: 'http://localhost:3000/'
+  baseURL: 'http://miauw-todos.achim.my.id/'
 })
 Vue.prototype.moment = moment
 Vue.use(VueSweetAlert)
