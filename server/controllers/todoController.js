@@ -4,7 +4,7 @@ const ObjectId = require('mongodb').ObjectId;
 const jwt = require('jsonwebtoken');
 
 var findAll = (req, res) => {
-  Todo.find({author: req.headers.id}).sort('-updatedAt')
+  Todo.find({author: req.headers.id}).sort('-createdAt')
   .populate('author', 'username')
   .then(result => res.send(result))
   .catch(err => res.send(err))
@@ -31,17 +31,6 @@ var findById = (req, res) => {
 }
 
 var put = (req, res) => {
-  // console.log(req.body);
-  // var tagar = req.body.tags.split(',')
-  // var data = {
-  //   tugas: req.body.tugas,
-  //   desc: req.body.desc,
-  //   tags: tagar,
-  // }
-  // console.log('=======',data);
-  // Todo.update({_id: req.params.id},{ $set: data})
-  // .then(result => res.send(result))
-  // .catch(err => res.send(err))
   Todo.findById(req.params.id, (err, todo) => {
     var tagar = req.body.tags.toString().split(',')
     if(err) {
@@ -79,13 +68,9 @@ var status = (req, res) => {
 }
 
 var destroy = (req, res) => {
-  // if(req.jwtLogin.role == 'admin'){
     Todo.remove({_id: req.params.id})
     .then(dataUser => res.send(`data id ${req.params.id} sudah dihapus`))
     .catch(err => res.send(err))
-  // } else {
-  //   res.send('anda tidak memiliki hak akses')
-  // }
 }
 
 module.exports = {
